@@ -9,8 +9,15 @@ body {
 }
 
 #snake {
-    width: 40px;
-    height: 40px;
-    background-color: white;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    position: fixed;
+}
+
+.snakefollowers {
+    width: 20px;
+    height: 20px;
+    background-color: green;
     position: fixed;
 }
