@@ -21,3 +21,21 @@ body {
     background-color: green;
     position: fixed;
 }
+
+#score {
+    color: white;
+    background-color: darkgray;
+    font: 13pt Arial;
+    font-weight: normal;
+    position: fixed;
+    top: 280px;
+    left: 0px;
+    width: 300px;
+}
+
+#apple {
+    background-color:white;
+    width: 20px;
+    height: 20px;
+    position: fixed;
+}

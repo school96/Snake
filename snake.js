@@ -1,5 +1,13 @@
 var snakedir = "n"
 var snake = document.getElementById("snake")
+var score = 0
+var snakex = []
+var snakey = []
+var moving = false
+
+function Randint(min, max) {
+    return min + Math.round(Math.random() * (max - min))
+}
 
 document.onkeydown = function(event) {
     if (event.key == "w") {
@@ -10,6 +18,8 @@ document.onkeydown = function(event) {
         snakedir = "s"
     } else if (event.key == "d") {
         snakedir = "e"
+    } else if (event.key == "f") {
+        score += 1
     }
 }
 
@@ -25,6 +35,8 @@ setInterval(function() {
     console.clear()
     console.log(snakedir)
     Update2()
+    moving = true
+    console.log(moving)
     if (snakedir == "n") {
         snake.style.top = (GetTop() - 20) + "px"
     }
@@ -49,6 +61,62 @@ setInterval(function() {
     }
     if (snakedir == "e" && GetLeft() == 300) {
         snake.style.left = 0 + "px"
+    }
+    document.getElementById("s").innerHTML = score
+    moving = false
+}, 150)
+
+
+var active1 = 1
+while (true) {
+    active1 += 1
+    snakex.push(document.getElementById("snake" + active1).style.left.replace("px", ""))
+    snakey.push(document.getElementById("snake" + active1).style.top.replace("px", ""))
+    if (active1 == 32) {
+        break
+    }
+}
+
+setInterval(function() {
+    var active2 = 1
+    while (true) {
+        active2 += 1
+        snakex[active2 - 1] = document.getElementById("snake" + active2).style.left.replace("px", "")
+        snakey[active2 - 1] = document.getElementById("snake" + active2).style.top.replace("px", "")
+        if (active2 == 32) {
+            break
+        }
+    }
+}, 10)
+
+setInterval(function() {
+    var active3 = 1
+    while (true) {
+        active3 += 1
+        if (score == active3 * 2) {
+            document.getElementById("snake" + active3.toString()).style.display = ""
+        }
+        if (active3 == 32) {
+            break
+        }
+    }
+}, 10)
+
+document.getElementById("apple").style.top = (Randint(0, 14) * 20) + "px"
+document.getElementById("apple").style.left = (Randint(0, 14) * 20) + "px"
+
+setInterval(function() {
+    if (document.getElementById("apple").style.top == document.getElementById("snake").style.top && document.getElementById("apple").style.left == document.getElementById("snake").style.left) {
+        while (true) {
+            var s1 = (Randint(0, 14) * 20) + "px"
+            var s2 = (Randint(0, 14) * 20) + "px"
+            if (s1 != document.getElementById("apple").style.top && s2 != document.getElementById("apple").style.left) {
+                break
+            }
+        }
+        document.getElementById("apple").style.top = s1
+        document.getElementById("apple").style.left = s2
+        score += 1
     }
 }, 150)
 
