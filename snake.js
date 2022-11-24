@@ -18,9 +18,9 @@ document.onkeydown = function(event) {
         snakedir = "s"
     } else if (event.key == "d") {
         snakedir = "e"
-    } else if (event.key == "f") {
+    }/* else if (event.key == "f") {
         score += 1
-    }
+    }*/
 }
 
 function GetTop() {
@@ -34,7 +34,8 @@ function GetLeft() {
 setInterval(function() {
     console.clear()
     console.log(snakedir)
-    Update2()
+    var prev1 = snake.style.top.replace("px", "")
+    var prev2 = snake.style.left.replace("px", "")
     moving = true
     console.log(moving)
     if (snakedir == "n") {
@@ -64,6 +65,7 @@ setInterval(function() {
     }
     document.getElementById("s").innerHTML = score
     moving = false
+    Update2(prev1, prev2)
 }, 150)
 
 
@@ -120,10 +122,29 @@ setInterval(function() {
     }
 }, 150)
 
-function Update2() {
+setInterval(function() {
+    var active4 = 1
+    while (true) {
+        active4 += 1
+        if (snake.style.top == document.getElementById("snake" + active4.toString()).style.top && snake.style.left == document.getElementById("snake" + active4.toString()).style.left && document.getElementById("snake" + active4.toString()).style.display != "none") {
+            snake.style.top = 10000 + "px"
+            snake.style.left = 10000 + "px"
+            document.getElementById("main").style.backgroundColor = "red"
+            setTimeout(function() {
+                window.location.reload()
+            }, 1000)
+            break
+        }
+        if (active4 == 32) {
+            break
+        }
+    }
+}, 150)
+
+function Update2(top, left) {
     Update3()
-    document.getElementById("snake2").style.top = GetTop() + "px"
-    document.getElementById("snake2").style.left = GetLeft() + "px"
+    document.getElementById("snake2").style.top = top + "px"
+    document.getElementById("snake2").style.left = left + "px"
 }
 
 function Update3() {
